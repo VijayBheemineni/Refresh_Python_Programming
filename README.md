@@ -1,2 +1,2 @@
 # Refresh_Python_Programming
-This repo contains details refreshing my Python programming skill
+This repo contains details refreshing my Python programming skill.
