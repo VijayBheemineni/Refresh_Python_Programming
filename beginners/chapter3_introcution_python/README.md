@@ -68,11 +68,13 @@ This chapter covers the basics of Python programming.
 ' I love AI and Python
 ```
 - Strings can be indexed.
+```
 +---+---+---+---+---+---+
  | P | y | t | h | o | n |
  +---+---+---+---+---+---+
  0   1   2   3   4   5   6
 -6  -5  -4  -3  -2  -1
+```
 ```
 >>> word = 'Python'
 >>> word[0]
