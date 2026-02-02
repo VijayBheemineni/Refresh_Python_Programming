@@ -55,16 +55,14 @@ i
 7
 8
 ```
-
 ```
 # Create list and iterate
-```
 >>> x = list(range(9))
 >>> type(x)
 <class 'list'>
 >>> for i in x:
 ...  print(i)
-...  
+...
 0
 1
 2
@@ -76,7 +74,8 @@ i
 8
 ```
 
-# Enumerate function returns 'enumerate' object. 'iterator' returned by 'enumerate()' returns 'tuple' which contains 'index', 'item'. For example 'tuple's for below 'algorithms' list are "(0, 'xgboost')", "(1, 'transformers')"
+### Enumerate function returns 'enumerate' object. 'iterator' returned by 'enumerate()' returns 'tuple' which contains 'index', 'item'. For example 'tuple's for below 'algorithms' list are "(0, 'xgboost')", "(1, 'transformers')"
+```
 >>> algorithms = ['xgboost', 'transformers']
 >>> for i, algorithm in enumerate(algorithms):
 ...  print(f"{i} {algorithm}")
