@@ -129,3 +129,13 @@ if __name__ == "__main__":
 
 ## Packages
 - Packages are a way of structing Python's module namespace by using "dotted module names"
+- '__init__.py' files are required to make Python treat directories containing the file as 'packages'.
+- '__all__' is a list of strings that defines which names be exported when someone uses `from <package> import *`
+
+### Intra Package References
+
+```
+from . import loader
+from .. import models
+from ..models import cnn
+```
