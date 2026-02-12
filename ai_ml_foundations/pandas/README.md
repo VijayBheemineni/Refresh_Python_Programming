@@ -180,7 +180,79 @@ M       Meta
      Company    Model
 A  Anthropic   Claude
 ```
+### Filtering
+- Filtering based on column values. Below we will filter out companies which start with 'A'.
 
+```
+>>> import pandas as pd
+>>> llms = pd.read_csv('llms.csv', index_col=0)
+>>> llms
+     Company     Model
+A  Anthropic    Claude
+G     Google    Gemini
+O     OpenAI   ChatGpt
+M       Meta     Llama
+>>> llms["Company"].str.startswith("A")
+A     True
+G    False
+O    False
+M    False
+Name: Company, dtype: bool
+>>> companies_start_with_a = llms["Company"].str.startswith("A")
+>>> llms[companies_start_with_a]
+     Company    Model
+A  Anthropic   Claude
+```
+### Iterate rows
+- Iterate the rows of dataframe using `iterrows`. This method returns `row label` and `row` as output.
+
+```
+>>> for row_label, row in llms.iterrows():
+...     print(f"{row_label} : {row}")
+... 
+A : Company    Anthropic
+Model         Claude
+Name: A, dtype: str
+G : Company     Google
+Model       Gemini
+Name: G, dtype: str
+O : Company      OpenAI
+Model       ChatGpt
+Name: O, dtype: str
+M : Company      Meta
+Model       Llama
+Name: M, dtype: str
+
+# Select particular column values only.
+>>> for row_label, row in llms.iterrows():
+...     print(f"{row_label} : {row['Company']}")
+... 
+A : Anthropic
+G : Google
+O : OpenAI
+M : Meta
+```
+
+### Add new columns
+```
+>>> llms["company_model"] = llms["Company"] + "_" + llms["Model"]
+>>> llms
+     Company     Model      company_model
+A  Anthropic    Claude  Anthropic_ Claude
+G     Google    Gemini     Google_ Gemini
+O     OpenAI   ChatGpt    OpenAI_ ChatGpt
+M       Meta     Llama        Meta_ Llama
+
+# Add new column using 'apply' method.
+>>> llms["UpperCase_CompanyName"] = llms["Company"].apply(str.upper)
+>>> llms
+     Company     Model      company_model UpperCase_CompanyName
+A  Anthropic    Claude  Anthropic_ Claude             ANTHROPIC
+G     Google    Gemini     Google_ Gemini                GOOGLE
+O     OpenAI   ChatGpt    OpenAI_ ChatGpt                OPENAI
+M       Meta     Llama        Meta_ Llama                  META
+
+```
 ### Misc Commands
 - Get all columns. 
 

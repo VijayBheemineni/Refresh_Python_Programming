@@ -91,3 +91,115 @@ np.float64(5.5)
 >>> np.std(np_numbers)
 np.float64(2.8722813232690143)
 ```
+
+### Creating arrays
+- `np.zeros` to create arrays which are filled with zeros. We need to pass tuple(rows, columns) as input to the method.
+```
+>>> import numpy as np
+>>> np.zeros((2,4))
+array([[0., 0., 0., 0.],
+       [0., 0., 0., 0.]])
+```
+- `np.random.random` can also be used to create `numpy` array. All elements values will be between '0' and '1'.
+
+```
+>>> np.random.random((2,4))
+array([[0.58838525, 0.26011467, 0.31386384, 0.11637054],
+       [0.55265201, 0.67904754, 0.32374006, 0.46661056]])
+```
+- `np.arrange` creates numbers based on 'start' and 'stop' value. Here we pass numbers directly not as tuples.
+```
+>>> np.arange(91,100)
+array([91, 92, 93, 94, 95, 96, 97, 98, 99])
+```
+
+### 3D Arrays
+
+```
+>>> two_dim_1 = np.array([
+...                             [1,2],
+...                             [3,4]
+... ])
+>>> two_dim_2 = np.array([
+...                             [5,6],
+...                             [7,8]
+... ])
+>>> two_dim_3 = np.array([
+...                             [9,10],
+...                             [11,12]
+... ])
+>>> three_dim_array = np.array([two_dim_1, two_dim_2, two_dim_3])
+>>> three_dim_array
+array([[[ 1,  2],
+        [ 3,  4]],
+
+       [[ 5,  6],
+        [ 7,  8]],
+
+       [[ 9, 10],
+        [11, 12]]])
+```
+- `vector` arrays are 1d arrays. There is no difference between row and column. This concept is used in `embeddings` in AI/ML.
+
+```
+>>> vector_array
+array([1, 2, 3, 4])
+```
+- `matrix` arrays are 2d arrays.
+```
+>>> matrix_array = np.array([
+...     [1,2],
+...     [3,4]
+... ])
+>>> matrix_array
+array([[1, 2],
+       [3, 4]])
+```
+- `tensor` arrays are 3d or mode dimensions arrays.
+
+
+## Numpy Attributes
+- `shape` :- provides shape of array.
+```
+>>> matrix_array.shape
+(2, 2)
+```
+- `flatten()` :- flattens the array.
+
+```
+>>> matrix_array.flatten()
+array([1, 2, 3, 4])
+```
+- `reshape()` :- reshapes the array.
+
+```
+>>> matrix_array.reshape(1,4)
+array([[1, 2, 3, 4]])
+```
+- `dtype` :- returns data type of the array.
+```
+>>> matrix_array.dtype
+dtype('int64')
+```
+- We can pass `dtype` as argument when creating the array. For example `int32` will occupy less memory.
+```
+>>> numpy_example = np.array([1,2,3,4], dtype=np.int32)
+>>> numpy_example
+array([1, 2, 3, 4], dtype=int32)
+```
+- `astype` :- allows to convert one data type to other.
+
+- Type `coercion`. Numpy will automatically convert `numbers` to strings. And `int` to `float`.
+
+```
+>>> numpy_example = np.array([1,2,3,4], dtype=np.int32)
+>>> numpy_example
+array([1, 2, 3, 4], dtype=int32)
+>>> numpy_example.astype(np.float32)
+array([1., 2., 3., 4.], dtype=float32)
+```
+## Numpy Data Types
+- `np.int64` :- has 64 bits. Default bit size.
+- `np.int32`
+- `np.float64`
+- `np.float32`
