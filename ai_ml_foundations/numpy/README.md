@@ -203,3 +203,161 @@ array([1., 2., 3., 4.], dtype=float32)
 - `np.int32`
 - `np.float64`
 - `np.float32`
+
+## Numpy  Operations
+
+### Indexing
+- Indexing 2D array, the format is `[<row>, <col>]`. If only `[<row>]` all columns are selected in that row. If we want all rows in 1 column `[:,<col>]`
+
+```
+>>> indexing_example = np.array([
+...     [
+...             1,2,3,4,5
+...     ],
+...     [
+...             6,7,8,9,10
+...     ]
+... ])
+>>> indexing_example[0]
+array([1, 2, 3, 4, 5])
+>>> indexing_example[0,2]
+np.int64(3)
+>>> indexing_example[:,2]
+array([3, 8])
+```
+
+### Slicing
+- Slicing :- 1D array `[<start>:<stop>]`. 2D Array `[<row_start>:<row_stop>, <col_start>:<col_stop>]`. Also we can provide step value `[<row_start>:<row_stop>:<step_value>, <col_start>:<col_stop>:<step_value>]`
+
+### Sorting
+
+- Sort. By default sort based on 'column'. So each row is taken and column values are sorted in `ascending` order. To sort based on `rows` we need to under `labels`. By default `rows` are `axis=0` and `columns` are `axis=1`.
+
+```
+>>> sort_example = np.array([[5,4,3,2,1],[10,9,8,7,6]])
+>>> sort_example
+array([[ 5,  4,  3,  2,  1],
+       [10,  9,  8,  7,  6]])
+>>> np.sort(sort_example)
+array([[ 1,  2,  3,  4,  5],
+       [ 6,  7,  8,  9, 10]])
+
+# Sort based on row
+>>> np.sort(sort_example,axis=0)
+array([[ 5,  4,  3,  2,  1],
+       [10,  9,  8,  7,  6]])
+```
+
+### Filtering
+- Filtering using indexing. Returns array of elements.
+```
+>>> numbers_array = np.array([1,2,3,4,5,6,7,8,9])
+>>> even_numbers_bool = numbers_array % 2 == 0
+>>> even_numbers_bool
+array([False,  True, False,  True, False,  True, False,  True, False])
+>>> even_numbers = numbers_array[even_numbers_bool]
+>>> even_numbers
+array([2, 4, 6, 8])
+```
+- Filtering using `np.where`. Returns array of indexes.
+       - `np.where` can also be used to replace values.
+
+```
+>>> numbers_array = np.array([1,2,3,4,5,6,7,8,9])
+>>> np.where(numbers_array % 2 == 0)
+(array([1, 3, 5, 7]),)
+>>> even_numbers = numbers_array[np.where(numbers_array % 2 == 0)]
+>>> even_numbers
+array([2, 4, 6, 8])
+```
+
+```
+# Replace 'even' numbers with 'even', else keep the current value.
+>>> np.where(numbers_array %2 == 0, "even", numbers_array)
+array(['1', 'even', '3', 'even', '5', 'even', '7', 'even', '9'],
+      dtype='<U21')
+```
+
+### Adding and Removing Elements
+
+#### Concatenate
+- Concatenating. We can concatenate two arrays using `np.concatenate((<array_1>,<array_2>))`
+       - For "column" concatenation(axis=1), number of `rows` in both arrays needs to match.
+       - For "rows" concatenation(axis=0)(default), number of `columns` in both array needs to match.
+
+```
+# In below example we can concatenate row wise(one array below another) because columns match but not rows.
+# Numpy automatically selects 'axis=0' because 'axis=1' column concatenation throws error because 1 array has '3' rows but 2 array has only 2 rows. 
+
+>>> array_1
+array([[1, 2, 3],
+       [4, 5, 6],
+       [7, 8, 9]])
+>>> array_1.shape
+(3, 3)
+>>> array_2
+array([[10, 11, 12],
+       [13, 14, 15]])
+>>> array_2.shape
+(2, 3)
+>>> np.concatenate((array_1,array_2))
+array([[ 1,  2,  3],
+       [ 4,  5,  6],
+       [ 7,  8,  9],
+       [10, 11, 12],
+       [13, 14, 15]])
+>>> np.concatenate((array_1,array_2),axis=1)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+    np.concatenate((array_1,array_2),axis=1)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: all the input array dimensions except for the concatenation axis must match exactly, but along dimension 0, the array at index 0 has size 3 and the array at index 1 has size 2
+```
+
+```
+# In below example we can concatenate column wise(one array side by another) because rows match but not columns.
+>>> array_1
+array([[1, 2, 3],
+       [4, 5, 6],
+       [7, 8, 9]])
+>>> array_1.shape
+(3, 3)
+>>> array_3 = np.array([[21,22],[23,24],[25,26]])
+>>> array_3.shape
+(3, 2)
+>>> np.concatenate((array_1,array_3),axis=1)
+array([[ 1,  2,  3, 21, 22],
+       [ 4,  5,  6, 23, 24],
+       [ 7,  8,  9, 25, 26]])
+>>> np.concatenate((array_1,array_3))
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+    np.concatenate((array_1,array_3))
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+ValueError: all the input array dimensions except for the concatenation axis must match exactly, but along dimension 1, the array at index 0 has size 3 and the array at index 1 has size 2
+```
+
+#### Delete
+- np.delete(<array>,<slice_index>,<axis_to_be_deleted>)
+
+```
+# Row deletion. We use axis=0(First axis). Delete the second row(1).
+>>> array_1
+array([[1, 2, 3],
+       [4, 5, 6],
+       [7, 8, 9]])
+>>> np.delete(array_1,1,axis=0)
+array([[1, 2, 3],
+       [7, 8, 9]])
+```
+```
+# Column deletion. We use axis=1(Second axis), Delete the second column(1).
+>>> array_1
+array([[1, 2, 3],
+       [4, 5, 6],
+       [7, 8, 9]])
+>>> np.delete(array_1,1,axis=1)
+array([[1, 3],
+       [4, 6],
+       [7, 9]])
+```
