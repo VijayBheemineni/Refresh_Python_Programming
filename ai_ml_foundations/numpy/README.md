@@ -361,3 +361,70 @@ array([[1, 3],
        [4, 6],
        [7, 9]])
 ```
+
+### Aggregating Methods
+- `sum` sums all numbers. If parameter `axis=0` aggregates across rows. If parameter `axis=1` aggregates across columns.
+
+```
+>>> import numpy as np
+>>> numbers = np.array([[1,2,3],[4,5,6],[7,8,9]])
+>>> numbers
+array([[1, 2, 3],
+       [4, 5, 6],
+       [7, 8, 9]])
+>>> numbers.sum()
+np.int64(45)
+>>> numbers.sum(axis=0)
+array([12, 15, 18])
+>>> numbers.sum(axis=1)
+array([ 6, 15, 24])
+```
+- `min`, `max` :- finds `min` or `max` out of all elements.
+- `mean`.
+- `sum`
+- `cumsum` :- 
+
+### Vectorized Operations
+- Single number in Math is called as 'scalar'.
+- Add 9(Scalar) to every element of array.
+```
+>>> numbers
+array([[1, 2, 3],
+       [4, 5, 6],
+       [7, 8, 9]])
+>>> numbers + 9
+array([[10, 11, 12],
+       [13, 14, 15],
+       [16, 17, 18]])
+```
+- Vectorized Python functions like `len`.
+
+```
+>>> llms
+array(['chatgpt', 'claude', 'gemini'], dtype='<U7')
+>>> vectorize_upper = np.vectorize(str.upper)
+>>> vectorize_upper(llms)
+array(['CHATGPT', 'CLAUDE', 'GEMINI'], dtype='<U7')
+```
+
+### Broadcasting 
+- `broadcasting` allows mathematical operations of arrays of different sizes. Below 'add' array is 'broadcasted'.
+
+```
+>>> number_arrays
+array([[1, 2, 3],
+       [4, 5, 6],
+       [7, 8, 9]])
+>>> add_array = np.array([[1],[2],[3]])
+>>> add_array
+array([[1],
+       [2],
+       [3]])
+>>> number_arrays + add_array
+array([[ 2,  3,  4],
+       [ 6,  7,  8],
+       [10, 11, 12]])
+```
+- `broadcasting` rules :- 
+       - compare array dimensions from 'right' to 'left'.
+       - two dimensions are compatible when 'one' of dimension is either '1' or both dimensions are equal. Example (10,5) and (10,1) are compatible. (10,5) and (5,10) are not compatible.
