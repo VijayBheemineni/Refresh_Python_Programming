@@ -428,3 +428,58 @@ array([[ 2,  3,  4],
 - `broadcasting` rules :- 
        - compare array dimensions from 'right' to 'left'.
        - two dimensions are compatible when 'one' of dimension is either '1' or both dimensions are equal. Example (10,5) and (10,1) are compatible. (10,5) and (5,10) are not compatible.
+
+
+### Saving and Loading Numpy Arrays
+- `numpy` files can be saved as `.npy` format.
+- `load` numpy file.
+```
+with open("numbers.numpy", "r") as f:
+       numbers_array = np.load(f)
+```
+- `save` numpy file.
+
+```
+with open("numbers.numpy","r") as f:
+       np.save(f)
+```
+
+### Array modifications
+- Used in AI/ML techniques like `data augmentation`. `data augmentation` is process of adding additional data by performing small changes on existing data.
+- `flip`.
+```
+>>> import numpy as np
+>>> numbers_arrays = np.array([[1,2,3],[4,5,6],[7,8,9]])
+>>> numbers_arrays
+array([[1, 2, 3],
+       [4, 5, 6],
+       [7, 8, 9]])
+>>> np.flip(numbers_arrays)
+array([[9, 8, 7],
+       [6, 5, 4],
+       [3, 2, 1]])
+>>> np.flip(numbers_arrays,axis=0)
+array([[7, 8, 9],
+       [4, 5, 6],
+       [1, 2, 3]])
+>>> np.flip(numbers_arrays,axis=1)
+array([[3, 2, 1],
+       [6, 5, 4],
+       [9, 8, 7]])
+```
+- `transpose`
+
+```
+>>> numbers_arrays
+array([[1, 2, 3],
+       [4, 5, 6],
+       [7, 8, 9]])
+>>> np.transpose(numbers_arrays)
+array([[1, 4, 7],
+       [2, 5, 8],
+       [3, 6, 9]])
+```
+
+### Stacking and Splitting 
+- `split`
+- `stack` :- stack list of arrays.
