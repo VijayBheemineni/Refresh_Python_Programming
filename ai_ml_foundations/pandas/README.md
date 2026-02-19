@@ -259,3 +259,6 @@ M       Meta     Llama        Meta_ Llama                  META
 ```
 llms.columns
 ```
+
+## Importing Data from files
+- `read_csv`
