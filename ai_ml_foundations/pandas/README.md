@@ -261,4 +261,66 @@ llms.columns
 ```
 
 ## Importing Data from files
-- `read_csv`
+
+### CSV, TSV files
+- `read_csv` is used to 'csv/tsv' kind of files. We can use optional parameter `sep='\t'` to load `tsv` file.
+- Using optional parameter `usecols` we can limit optional columns to be loaded.
+
+```
+>>> llms_companies = pd.read_csv('llms.csv', usecols=col_names)
+>>> llms_companies
+     Company
+0  Anthropic
+1     Google
+2     OpenAI
+3       Meta
+
+# By using column numbers
+>>> llms_companies = pd.read_csv('llms.csv', usecols=[1])
+>>> llms_companies
+     Company
+0  Anthropic
+1     Google
+2     OpenAI
+3       Meta
+```
+- Using optional parameter `nrows` to limit number of rows.
+
+```
+>>> llms_rows = pd.read_csv('llms.csv',nrows=2)
+>>> llms_rows
+  Unnamed: 0    Company    Model
+0          A  Anthropic   Claude
+1          G     Google   Gemini
+```
+- Limiting rows using `nrows` or `skiprows`. 
+```
+>>> llms
+  Unnamed: 0    Company     Model
+0          A  Anthropic    Claude
+1          G     Google    Gemini
+2          O     OpenAI   ChatGpt
+3          M       Meta     Llama
+>>> llms_rows = pd.read_csv('llms.csv',nrows=2, skiprows=1)
+>>> llms_rows
+   A Anthropic    Claude
+0  G    Google    Gemini
+1  O    OpenAI   ChatGpt
+```
+- We can use optional parameter `header=None` for files which don't have column names.
+- Assign columns names we use `names` which takes list of column names.
+
+### Handling errors and missing data
+- When importing data by default infers column data types. `dtypes` attributes shows datatypes of columns.
+- For `read_csv` we can pass optional parameter `dtype` which defines column types. `dtype` is a dictionary of column names and data types.
+
+```
+>>> llms=pd.read_csv('llms.csv',dtype={"Company": str, "Model": str})
+>>> llms.dtypes
+Unnamed: 0    str
+Company       str
+Model         str
+dtype: object
+```
+- `pandas` automatically interprets some values as missing or NA. We can use `na_values` parameters. For example `na_values={"ModelVersion": 0}`
+- Lines that `pandas` can't parse. We can use `error_bad_lines=False` to skip unparseable records. We can use `warn_bad_lines=True` to see messages when records are missed.
